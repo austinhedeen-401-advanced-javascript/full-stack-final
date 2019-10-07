@@ -11,7 +11,6 @@ let db = [];
  * Returns an array of scores, sorted by `score` in descending order.
  */
 router.get('/scores', (request, response) => {
-  db.sort((a, b) => b.score - a.score);
   response.status(200).json(db);
 });
 
@@ -22,7 +21,8 @@ router.post('/scores', (request, response) => {
   const data = request.body;
   data._id = uuid();
   db.push(data);
-  response.status(200).json(data);
+  db.sort((a, b) => b.score - a.score);
+  response.status(200).json(db);
 });
 
 /**
