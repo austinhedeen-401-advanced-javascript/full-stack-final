@@ -27,7 +27,7 @@ const Scores = ({ scores, loadScores, addScore }) => {
     superagent.post(`${API_URL}/scores`)
       .send({name: formName, score: formScore})
       .then(response => {
-        addScore(response.body);
+        loadScores(response.body);
       });
     setFormName('');
     setFormScore('');
@@ -36,9 +36,9 @@ const Scores = ({ scores, loadScores, addScore }) => {
   return (
     <>
       <ul>
-        {scores.map(score => (
+        {scores.map((score, i) => (
           <li key={score._id}>
-            <span>{score.name} - {score.score}</span>
+            <span>{(i === 0) ? '(TOP SCORE!)' : ''} {score.name} - {score.score} points</span>
             <button onClick={(e) => handleDelete(score._id, e)}>Delete</button>
           </li>
         ))}
